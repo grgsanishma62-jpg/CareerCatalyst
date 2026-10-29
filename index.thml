@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MealShare Aldershot helps manage surplus food donations and distribute meals to people in need.">
+    <title>MealShare Aldershot | Food Donation Manager</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/app.js" defer></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <a class="brand" href="#home" aria-label="MealShare Aldershot home">
+            <span class="brand-icon">♡</span>
+            <span>
+                <strong>MealShare</strong>
+                <small>ALDERSHOT</small>
+            </span>
+        </a>
+
+        <nav class="main-nav" aria-label="Main navigation">
+            <a href="#home">Home</a>
+            <a href="#donations">Food donations</a>
+            <a href="#tracking">Collection & distribution</a>
+            <a href="#about">About</a>
+        </nav>
+
+        <a class="header-button" href="#donations">Manage donations ↗</a>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <span class="eyebrow">A LOCAL COMMUNITY PROJECT</span>
+                <h1>Good food.<br><span>Shared with care.</span></h1>
+                <p>
+                    Helping surplus food from a local Aldershot restaurant
+                    reach people who need it. Less waste, more care, one meal at a time.
+                </p>
+                <div class="hero-actions">
+                    <a class="button button-primary" href="#donations">Add a food donation</a>
+                    <a class="button button-light" href="#tracking">Track meals ↓</a>
+                </div>
+                <div class="hero-note">
+                    <span class="status-dot"></span>
+                    A small local project making a meaningful difference
+                </div>
+            </div>
+
+            <div class="hero-art" aria-label="Illustration of a shared meal">
+                <div class="art-circle circle-one"></div>
+                <div class="art-circle circle-two"></div>
+                <div class="food-card">
+                    <div class="food-emoji">🥗</div>
+                    <span class="food-label">GOOD FOOD, NOT WASTE</span>
+                    <h3>Share a meal</h3>
+                    <p>Every portion matters.</p>
+                    <div class="food-decoration">✳ ✳ ✳</div>
+                </div>
+                <div class="floating-note note-top">♡ Community first</div>
+                <div class="floating-note note-bottom">♧ Less food waste</div>
+            </div>
+        </section>
+
+        <section class="stats-section" aria-label="Donation summary">
+            <div class="stat-card">
+                <span class="stat-icon">♧</span>
+                <div>
+                    <p>Total portions listed</p>
+                    <h2 id="totalPortions">0</h2>
+                    <small>From recorded donations</small>
+                </div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">↗</span>
+                <div>
+                    <p>Portions collected</p>
+                    <h2 id="collectedPortions">0</h2>
+                    <small>Marked as collected</small>
+                </div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">♡</span>
+                <div>
+                    <p>Portions distributed</p>
+                    <h2 id="distributedPortions">0</h2>
+                    <small>Recorded as distributed</small>
+                </div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">◷</span>
+                <div>
+                    <p>Awaiting collection</p>
+                    <h2 id="waitingPortions">0</h2>
+                    <small>Still to be collected</small>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section" id="donations">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">DONATION MANAGEMENT</span>
+                    <h2>Food donations</h2>
+                    <p>Add surplus food details and keep everything organised.</p>
+                </div>
+                <span class="small-tag">Restaurant donations</span>
+            </div>
+
+            <div class="dashboard-grid">
+                <section class="panel form-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h3>Add a donation</h3>
+                            <p>Enter the details supplied by the restaurant.</p>
+                        </div>
+                        <span class="heading-icon">＋</span>
+                    </div>
+
+                    <form id="donationForm">
+                        <label for="foodName">Food name <span class="required">*</span></label>
+                        <input id="foodName" name="foodName" type="text"
+                               placeholder="e.g. Vegetable curry" required maxlength="100">
+
+                        <div class="form-row">
+                            <div>
+                                <label for="quantity">Number of portions <span class="required">*</span></label>
+                                <input id="quantity" name="quantity" type="number"
+                                       min="1" max="10000" placeholder="e.g. 12" required>
+                            </div>
+                            <div>
+                                <label for="deadline">Collection deadline <span class="required">*</span></label>
+                                <input id="deadline" name="deadline" type="datetime-local" required>
+                            </div>
+                        </div>
+
+                        <label for="allergens">Allergens and dietary information</label>
+                        <input id="allergens" name="allergens" type="text"
+                               placeholder="e.g. Contains milk; vegetarian" maxlength="250">
+
+                        <label for="notes">Additional notes</label>
+                        <textarea id="notes" name="notes" rows="3"
+                                  placeholder="Storage, packaging or collection instructions..."
+                                  maxlength="1000"></textarea>
+
+                        <button class="button button-primary full-button" type="submit">
+                            + Save food donation
+                        </button>
+                        <p class="form-message" id="formMessage" role="status"></p>
+                    </form>
+                </section>
+
+                <section class="panel list-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h3>Donation records</h3>
+                            <p>Search, filter and update each donation.</p>
+                        </div>
+                        <span class="record-count" id="recordCount">0 records</span>
+                    </div>
+
+                    <div class="list-controls">
+                        <input id="searchInput" type="search"
+                               placeholder="Search food donations..." aria-label="Search donations">
+                        <select id="statusFilter" aria-label="Filter by status">
+                            <option value="all">All statuses</option>
+                            <option value="Available">Available</option>
+                            <option value="Collected">Collected</option>
+                            <option value="Partially distributed">Partially distributed</option>
+                            <option value="Distributed">Distributed</option>
+                        </select>
+                    </div>
+
+                    <div id="donationList" class="donation-list" aria-live="polite">
+                        <div class="empty-state">
+                            <span>🥬</span>
+                            <h3>No donations yet</h3>
+                            <p>Add your first food donation using the form.</p>
+                        </div>
+                    </div>
+
+                    <div class="export-row">
+                        <span>Keep a copy of your records.</span>
+                        <button id="exportButton" class="button button-outline" type="button">
+                            ↓ Export CSV
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <section class="tracking-section" id="tracking">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">FOLLOW EVERY PORTION</span>
+                    <h2>Collection & distribution</h2>
+                    <p>Record how much food has been collected and how much has reached recipients.</p>
+                </div>
+            </div>
+
+            <div class="tracking-cards">
+                <article class="tracking-card">
+                    <span class="tracking-icon">①</span>
+                    <h3>1. Record the donation</h3>
+                    <p>Enter the food type, number of portions, deadline and allergen details provided by the restaurant.</p>
+                </article>
+                <article class="tracking-card">
+                    <span class="tracking-icon">②</span>
+                    <h3>2. Confirm collection</h3>
+                    <p>Update the collected quantity when the food has physically been collected and checked.</p>
+                </article>
+                <article class="tracking-card">
+                    <span class="tracking-icon">③</span>
+                    <h3>3. Record distribution</h3>
+                    <p>Record the portions distributed and the remaining quantity so your records stay accurate.</p>
+                </article>
+            </div>
+            <p class="notice">
+                <strong>Important:</strong> This website records quantities only. It does not confirm
+                food safety or identify individual recipients. Check handling, storage, allergens and
+                collection arrangements with the restaurant before distributing food.
+            </p>
+        </section>
+
+        <section class="about-section" id="about">
+            <div class="about-mark">♡</div>
+            <div>
+                <span class="eyebrow">OUR PURPOSE</span>
+                <h2>Small actions. Shared kindness.</h2>
+                <p>
+                    MealShare Aldershot is a student-led project exploring how surplus food
+                    from a local restaurant can be managed and shared with people experiencing
+                    food insecurity. The aim is to reduce avoidable food waste while helping
+                    useful food reach the community.
+                </p>
+                <p class="about-small">
+                    We are starting with one participating restaurant and will only list
+                    donations that have actually been offered.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <a class="brand footer-brand" href="#home">
+            <span class="brand-icon">♡</span>
+            <span><strong>MealShare</strong><small>ALDERSHOT</small></span>
+        </a>
+        <p>Made with care for our local community.</p>
+        <a href="#home">Back to top ↑</a>
+    </footer>
+</body>
+</html>
