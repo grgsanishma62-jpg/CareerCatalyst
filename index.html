@@ -4,446 +4,317 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="description" content="MealShare Aldershot aims to reduce food waste and support the local community by connecting suitable surplus food with people who need it.">
-
-    <title>MealShare Aldershot | Good Food, Shared</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+    <meta name="description" content="MealShare Aldershot aims to reduce food waste by connecting suitable surplus food from local restaurants with people experiencing homelessness.">
+    <title>MealShare Aldershot | Sharing Food, Sharing Hope</title>
     <link rel="stylesheet" href="style.css">
-    <script src="app.js" defer></script>
 </head>
-
 <body>
 
-    <!-- HEADER -->
+    <!-- Navigation -->
     <header class="site-header">
-        <a class="brand" href="#home">
-            <span class="brand-mark">M</span>
-            <span class="brand-name">
-                mealshare<span class="brand-dot">.</span>
-                <small>ALDERSHOT</small>
-            </span>
-        </a>
+        <a href="#home" class="logo">Meal<span>Share</span></a>
 
-        <button class="menu-toggle" id="menuToggle"
-                aria-label="Open navigation" aria-expanded="false">
-            ☰
-        </button>
-
-        <nav class="navigation" id="navigation" aria-label="Main navigation">
-            <a href="#about">Our mission</a>
-            <a href="#partner">Our partner</a>
-            <a href="#process">How it works</a>
-            <a href="#tracker">Food tracker</a>
-            <a class="nav-cta" href="#contact">Get involved ↗</a>
+        <nav class="navigation" id="navigation">
+            <a href="#home">Home</a>
+            <a href="#mission">Our Mission</a>
+            <a href="#partner">Our Partner</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#tracker" class="nav-button">Food Tracker</a>
         </nav>
     </header>
 
     <main>
-
-        <!-- HERO -->
+        <!-- Hero -->
         <section class="hero" id="home">
-
-            <div class="hero-copy">
-                <p class="eyebrow">GOOD FOOD. SHARED WITH CARE.</p>
+            <div class="hero-content">
+                <p class="eyebrow">MEALSHARE ALDERSHOT</p>
 
                 <h1>
-                    There's enough good in food to
-                    <em>share.</em>
+                    Good food.<br>
+                    Less waste.<br>
+                    <span>More hope.</span>
                 </h1>
 
                 <p class="hero-description">
-                    We're building a community project in Aldershot to help
-                    suitable surplus food reach people who need support,
-                    instead of going to waste.
+                    We want to help connect suitable surplus food from
+                    local restaurants with people experiencing homelessness
+                    in Aldershot. Because good food deserves to be shared.
                 </p>
 
-                <div class="hero-actions">
-                    <a href="#about" class="button button-dark">
-                        Discover our mission →
+                <div class="hero-buttons">
+                    <a href="#mission" class="button button-primary">
+                        Discover Our Mission
                     </a>
-
-                    <a href="#process" class="text-action">
-                        How it works ↘
+                    <a href="#partner" class="button button-outline">
+                        Meet Our Partner
                     </a>
-                </div>
-
-                <div class="hero-note">
-                    <span class="note-icon">♡</span>
-                    <p>
-                        <strong>A community-first idea</strong>
-                        <br>
-                        Starting small, with care and purpose.
-                    </p>
                 </div>
             </div>
 
-            <div class="hero-visual">
-                <img
-                    src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85"
-                    alt="A colourful table of freshly prepared food">
-
-                <div class="image-caption">
-                    <span class="caption-dot"></span>
-                    Less waste. More care.
-                </div>
-
-                <div class="floating-note">
-                    <span class="floating-icon">✳</span>
-                    <p>
-                        <strong>Good food</strong>
-                        <br>
-                        deserves a second chance.
-                    </p>
-                </div>
-            </div>
-
+            <div class="hero-image" role="img"
+                 aria-label="A freshly prepared meal"></div>
         </section>
 
-        <!-- PURPOSE STRIP -->
-        <section class="mission-band">
-            <p><span>01</span> Reduce food waste</p>
-            <i></i>
-            <p><span>02</span> Support our neighbours</p>
-            <i></i>
-            <p><span>03</span> Bring people together</p>
-        </section>
+        <div class="intro-strip">
+            Bringing our community together, one meal at a time.
+        </div>
 
-        <!-- OUR MISSION -->
-        <section class="section about-section" id="about">
-
-            <div class="section-intro">
-                <p class="eyebrow">WHY WE'RE HERE</p>
-                <h2>
-                    A little less waste.
-                    <em>A little more kindness.</em>
-                </h2>
-            </div>
-
-            <div class="about-side">
-                <p class="section-lead">
-                    MealShare Aldershot is a community-focused project with
-                    a simple ambition: help good food find a useful purpose
-                    and support people experiencing homelessness.
+        <!-- Mission -->
+        <section class="section mission-section" id="mission">
+            <div class="section-heading">
+                <p class="eyebrow">WHY MEALSHARE MATTERS</p>
+                <h2>Discover Our <span>Mission</span></h2>
+                <p>
+                    We believe good food should not go to waste when it
+                    could help someone in our community.
                 </p>
-
-                <div class="value-grid">
-
-                    <article class="value-card">
-                        <span class="value-icon green-icon">✳</span>
-                        <h3>Waste less</h3>
-                        <p>
-                            Help suitable surplus food be used rather than
-                            unnecessarily thrown away.
-                        </p>
-                    </article>
-
-                    <article class="value-card">
-                        <span class="value-icon peach-icon">♡</span>
-                        <h3>Care more</h3>
-                        <p>
-                            Work towards making food available to people
-                            who may need extra support.
-                        </p>
-                    </article>
-
-                    <article class="value-card">
-                        <span class="value-icon yellow-icon">↗</span>
-                        <h3>Grow together</h3>
-                        <p>
-                            Build relationships with local restaurants
-                            and community organisations.
-                        </p>
-                    </article>
-
-                </div>
             </div>
 
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">♻️</div>
+                    <h3>Reduce Food Waste</h3>
+                    <p>
+                        Help make better use of suitable surplus food
+                        from local food businesses.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">🥗</div>
+                    <h3>Share Good Food</h3>
+                    <p>
+                        Work towards connecting available food with
+                        organisations supporting people in need.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">🤝</div>
+                    <h3>Support Our Community</h3>
+                    <p>
+                        Build local partnerships that bring people
+                        together to make a positive difference.
+                    </p>
+                </article>
+            </div>
         </section>
 
-        <!-- RESTAURANT PARTNER -->
+        <!-- Restaurant partner -->
         <section class="partner-section" id="partner">
+            <div class="partner-image" role="img"
+                 aria-label="A welcoming restaurant setting"></div>
 
-            <div class="partner-photo">
-                <img
-                    src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=85"
-                    alt="A welcoming restaurant dining space">
+            <div class="partner-content">
+                <p class="eyebrow">OUR LOCAL PARTNER</p>
 
-                <span class="photo-tag">OUR FIRST PARTNER</span>
-            </div>
+                <h2>Good Food,<br><span>Shared with Care.</span></h2>
 
-            <div class="partner-copy">
-                <p class="eyebrow">STARTING LOCALLY</p>
-
-                <h2>
-                    Meet our first partner:
-                    <em>BYANJAN RESTAURANT &amp; CAFE.</em>
-                </h2>
+                <h3 class="partner-name">
+                    BYANJAN RESTAURANT &amp; CAFE
+                </h3>
 
                 <p>
-                    We're beginning with BYANJAN RESTAURANT &amp; CAFE.
-                    The aim is to explore how suitable surplus food could
-                    be collected at the end of the day and shared through
-                    safe, agreed arrangements.
+                    Every community has the power to make a difference.
+                    Through our proposed partnership with BYANJAN
+                    RESTAURANT &amp; CAFE, MealShare Aldershot aims to
+                    explore how suitable surplus food can be put to
+                    better use.
                 </p>
 
                 <p>
-                    This is the start of the journey. Any collection or
-                    distribution will only happen once the practical
-                    arrangements and food-safety requirements have been agreed.
+                    Our goal is simple: reduce avoidable food waste
+                    and help good food reach people who may need support.
                 </p>
 
-                <a class="text-action" href="#process">
-                    Explore the planned process →
+                <a href="#how-it-works" class="button button-primary">
+                    See How It Works
                 </a>
-            </div>
 
+                <p class="partner-note">
+                    We are developing this initiative and working
+                    towards making food sharing possible.
+                </p>
+            </div>
         </section>
 
-        <!-- HOW IT WORKS -->
-        <section class="section process-section" id="process">
-
-            <div class="center-heading">
-                <p class="eyebrow">THE PLAN</p>
-
-                <h2>
-                    Simple steps.
-                    <em>Thoughtful sharing.</em>
-                </h2>
-
+        <!-- How it works -->
+        <section class="section process-section" id="how-it-works">
+            <div class="section-heading">
+                <p class="eyebrow">FROM SURPLUS TO SUPPORT</p>
+                <h2>How It <span>Works</span></h2>
                 <p>
-                    Our planned process puts safety, dignity and clear
-                    communication first.
+                    Our proposed process is designed to make food
+                    sharing simple, safe and organised.
                 </p>
             </div>
 
-            <div class="steps-grid">
-
-                <article class="step-card">
-                    <div class="step-top">
-                        <span>01</span>
-                        <span class="step-symbol">◌</span>
-                    </div>
-
-                    <h3>Identify</h3>
-
+            <div class="process-grid">
+                <article class="process-card">
+                    <span class="step-number">01</span>
+                    <h3>Food Is Identified</h3>
                     <p>
-                        The restaurant identifies suitable surplus food
-                        that may be available to share.
+                        A participating food business identifies
+                        suitable surplus food that can be safely shared.
                     </p>
                 </article>
 
-                <article class="step-card">
-                    <div class="step-top">
-                        <span>02</span>
-                        <span class="step-symbol">↗</span>
-                    </div>
-
-                    <h3>Arrange collection</h3>
-
+                <article class="process-card">
+                    <span class="step-number">02</span>
+                    <h3>Collection Is Arranged</h3>
                     <p>
-                        Collection is agreed and safe handling, storage
-                        and allergen information are checked.
+                        Collection details and food safety requirements
+                        are checked before any food is transferred.
                     </p>
                 </article>
 
-                <article class="step-card">
-                    <div class="step-top">
-                        <span>03</span>
-                        <span class="step-symbol">♡</span>
-                    </div>
-
-                    <h3>Share responsibly</h3>
-
+                <article class="process-card">
+                    <span class="step-number">03</span>
+                    <h3>Food Reaches People</h3>
                     <p>
-                        Suitable food is shared through the project's
-                        agreed distribution arrangements.
+                        The aim is to coordinate with appropriate
+                        support organisations so food can reach people
+                        who need it.
                     </p>
                 </article>
-
             </div>
 
             <div class="safety-note">
-                <span class="safety-icon">!</span>
-                <p>
-                    <strong>Safety comes first.</strong>
-                    Food will only be collected and shared when safe handling,
-                    storage, temperature, allergen information and collection
-                    arrangements have been checked.
-                </p>
+                <strong>Food safety comes first.</strong>
+                Any future food sharing must follow appropriate
+                food safety, storage, allergen and handling guidance.
             </div>
-
         </section>
 
-        <!-- FOOD TRACKER -->
-        <section class="tracker-section" id="tracker">
-
-            <div class="tracker-heading">
-                <div>
-                    <p class="eyebrow">A TRANSPARENT START</p>
-
-                    <h2>Our food <em>tracker.</em></h2>
-
-                    <p>
-                        As the project develops, this is where real donation
-                        and collection records can be kept.
-                    </p>
-                </div>
-
-                <div class="status-pill">
-                    <span></span>
-                    Project getting started
-                </div>
-            </div>
-
-            <!-- DASHBOARD FIGURES -->
-            <div class="stats-grid">
-
-                <article class="stat-card">
-                    <span class="stat-label">Donation records</span>
-                    <strong id="donationCount">0</strong>
-                    <span class="stat-foot">records entered</span>
-                </article>
-
-                <article class="stat-card">
-                    <span class="stat-label">Portions offered</span>
-                    <strong id="portionCount">0</strong>
-                    <span class="stat-foot">portions recorded</span>
-                </article>
-
-                <article class="stat-card">
-                    <span class="stat-label">Collections</span>
-                    <strong id="collectionCount">0</strong>
-                    <span class="stat-foot">marked collected</span>
-                </article>
-
-                <article class="stat-card">
-                    <span class="stat-label">Portions shared</span>
-                    <strong id="distributedCount">0</strong>
-                    <span class="stat-foot">portions recorded</span>
-                </article>
-
+        <!-- Food tracker -->
+        <section class="section tracker-section" id="tracker">
+            <div class="section-heading">
+                <p class="eyebrow">KEEPING TRACK</p>
+                <h2>Our Food <span>Tracker</span></h2>
+                <p>
+                    A simple way to record donations, collections
+                    and portions distributed through MealShare.
+                </p>
             </div>
 
             <div class="tracker-notice">
-                <span>i</span>
-                <p>
-                    <strong>Just starting out.</strong>
-                    All figures currently begin at zero and will update
-                    only when real project records are added.
-                </p>
+                <strong>Project demonstration:</strong>
+                The figures below show records entered into this
+                website, not verified real-world donations.
             </div>
 
-            <!-- TRACKER FORMS -->
+            <!-- Statistics -->
+            <div class="stats-grid">
+                <article class="stat-card">
+                    <span class="stat-icon" aria-hidden="true">🍱</span>
+                    <p class="stat-label">Donation Records</p>
+                    <strong id="totalDonations">0</strong>
+                </article>
+
+                <article class="stat-card">
+                    <span class="stat-icon" aria-hidden="true">🥡</span>
+                    <p class="stat-label">Portions Donated</p>
+                    <strong id="totalPortions">0</strong>
+                </article>
+
+                <article class="stat-card">
+                    <span class="stat-icon" aria-hidden="true">🚚</span>
+                    <p class="stat-label">Collections Recorded</p>
+                    <strong id="totalCollections">0</strong>
+                </article>
+
+                <article class="stat-card">
+                    <span class="stat-icon" aria-hidden="true">💚</span>
+                    <p class="stat-label">Portions Distributed</p>
+                    <strong id="totalDistributed">0</strong>
+                </article>
+            </div>
+
+            <!-- Forms -->
             <div class="tracker-grid">
-
                 <article class="form-card">
-
-                    <div class="card-heading">
-                        <span class="form-step">01</span>
-                        <div>
-                            <h3>Add a donation</h3>
-                            <p>Record food that has actually been offered.</p>
-                        </div>
-                    </div>
+                    <p class="eyebrow">ADD A RECORD</p>
+                    <h3>Record a Food Donation</h3>
+                    <p class="form-intro">
+                        Enter the details of a donation for your project
+                        records or demonstration.
+                    </p>
 
                     <form id="donationForm">
+                        <label for="donorName">Restaurant or Donor</label>
+                        <input type="text" id="donorName"
+                               name="donorName" required
+                               placeholder="e.g. BYANJAN Restaurant & Cafe">
 
-                        <label for="foodName">Food description</label>
-                        <input
-                            type="text"
-                            id="foodName"
-                            placeholder="e.g. Vegetable curry"
-                            maxlength="100"
-                            required>
+                        <label for="foodItem">Food Description</label>
+                        <input type="text" id="foodItem"
+                               name="foodItem" required
+                               placeholder="e.g. Prepared meal">
 
-                        <div class="form-row">
-                            <div>
-                                <label for="foodPortions">Number of portions</label>
-                                <input
-                                    type="number"
-                                    id="foodPortions"
-                                    min="1"
-                                    step="1"
-                                    placeholder="e.g. 5"
-                                    required>
-                            </div>
+                        <label for="portions">Number of Portions</label>
+                        <input type="number" id="portions"
+                               name="portions" min="1" max="10000"
+                               step="1" required placeholder="e.g. 10">
 
-                            <div>
-                                <label for="donationDate">Date offered</label>
-                                <input type="date" id="donationDate" required>
-                            </div>
-                        </div>
+                        <label for="donationDate">Donation Date</label>
+                        <input type="date" id="donationDate"
+                               name="donationDate" required>
 
-                        <label for="foodNotes">Notes (optional)</label>
-                        <textarea
-                            id="foodNotes"
-                            rows="3"
-                            placeholder="Relevant food or allergen information"></textarea>
-
-                        <button type="submit" class="button button-dark full-button">
-                            Save donation record →
+                        <button type="submit"
+                                class="button button-primary full-button">
+                            Add Donation Record
                         </button>
-
                     </form>
                 </article>
 
                 <article class="form-card">
-
-                    <div class="card-heading">
-                        <span class="form-step peach-step">02</span>
-                        <div>
-                            <h3>Update a record</h3>
-                            <p>Update collection and distribution after they happen.</p>
-                        </div>
-                    </div>
+                    <p class="eyebrow">UPDATE A RECORD</p>
+                    <h3>Record Collection &amp; Distribution</h3>
+                    <p class="form-intro">
+                        Select a donation and record the portions
+                        collected and distributed.
+                    </p>
 
                     <form id="distributionForm">
-
-                        <label for="donationSelect">Choose a donation</label>
-                        <select id="donationSelect" required>
+                        <label for="donationSelect">Select Donation</label>
+                        <select id="donationSelect" name="donationSelect"
+                                required>
                             <option value="">No donation records yet</option>
                         </select>
 
-                        <label for="collectionStatus">Collection status</label>
-                        <select id="collectionStatus" required>
-                            <option value="not-collected">Not collected</option>
-                            <option value="collected">Collected</option>
-                        </select>
+                        <label for="collectedPortions">
+                            Portions Collected
+                        </label>
+                        <input type="number" id="collectedPortions"
+                               name="collectedPortions" min="0"
+                               step="1" required value="0">
 
-                        <label for="distributedPortions">Portions distributed</label>
-                        <input
-                            type="number"
-                            id="distributedPortions"
-                            min="0"
-                            step="1"
-                            value="0"
-                            required>
+                        <label for="distributedPortions">
+                            Portions Distributed
+                        </label>
+                        <input type="number" id="distributedPortions"
+                               name="distributedPortions" min="0"
+                               step="1" required value="0">
 
-                        <button type="submit" class="button button-outline full-button">
-                            Update record →
+                        <button type="submit"
+                                class="button button-primary full-button">
+                            Update Record
                         </button>
-
                     </form>
                 </article>
-
             </div>
 
-            <!-- DONATION HISTORY -->
+            <!-- Donation history -->
             <article class="records-card">
-
                 <div class="records-heading">
                     <div>
-                        <h3>Donation history</h3>
-                        <p>Your project records, saved in this browser.</p>
+                        <h3>Donation History</h3>
+                        <p>View the records entered into the tracker.</p>
                     </div>
 
-                    <button id="exportButton" class="export-button" type="button">
-                        Export CSV ↓
+                    <button type="button" id="exportButton"
+                            class="button button-outline">
+                        Export CSV
                     </button>
                 </div>
 
@@ -452,85 +323,68 @@
                         <thead>
                             <tr>
                                 <th>Date</th>
+                                <th>Donor</th>
                                 <th>Food</th>
-                                <th>Portions</th>
-                                <th>Collection</th>
-                                <th>Shared</th>
+                                <th>Donated</th>
+                                <th>Collected</th>
+                                <th>Distributed</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
-
                         <tbody id="donationTable">
                             <tr>
-                                <td colspan="5" class="empty-message">
-                                    No records yet. Your entries will appear here.
+                                <td colspan="7" class="empty-message">
+                                    No donation records yet.
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-
             </article>
 
             <p class="privacy-note">
-                <strong>Prototype note:</strong>
-                Records are stored only in this browser on this device.
-                They are not shared with the restaurant or other users.
-                Do not enter personal information about recipients.
+                Tracker records are saved in this browser on this device.
+                They are not automatically shared with a restaurant or
+                another organisation.
             </p>
-
         </section>
 
-        <!-- CONTACT -->
-        <section class="contact-section" id="contact">
+        <!-- Get involved -->
+        <section class="future-section" id="get-involved">
+            <div class="future-content">
+                <p class="eyebrow">A COMMUNITY EFFORT</p>
+                <h2>Small Actions.<br><span>Real Possibilities.</span></h2>
 
-            <div class="contact-shape">♡</div>
+                <p>
+                    A better approach to surplus food starts with
+                    local conversations, responsible partnerships
+                    and people who care about their community.
+                </p>
 
-            <p class="eyebrow">BE PART OF THE GOOD</p>
+                <a href="#partner" class="button button-light">
+                    Explore Our Partnership
+                </a>
 
-            <h2>
-                Good things grow
-                <br>
-                when we <em>work together.</em>
-            </h2>
-
-            <p>
-                We're starting with one local restaurant and a clear goal.
-                As the project develops, we hope to connect with more local
-                organisations and people who care about reducing food waste.
-            </p>
-
-            <a class="button button-light"
-               href="mailto:mealsharealdershot@example.com">
-                Contact the project ↗
-            </a>
-
-            <small>
-                Before publishing, replace the example email address
-                with a real project contact email.
-            </small>
-
+                <p class="small-note">
+                    MealShare Aldershot is a developing project.
+                    Please check partnership arrangements before
+                    offering or collecting food.
+                </p>
+            </div>
         </section>
-
     </main>
 
-    <!-- FOOTER -->
+    <!-- Footer -->
     <footer class="site-footer">
-
-        <a class="brand footer-brand" href="#home">
-            <span class="brand-mark">M</span>
-            <span class="brand-name">
-                mealshare<span class="brand-dot">.</span>
-                <small>ALDERSHOT</small>
-            </span>
+        <a href="#home" class="logo footer-logo">
+            Meal<span>Share</span>
         </a>
-
-        <p>Good food, shared with care.</p>
-
-        <span class="footer-copy">
-            © <span id="currentYear"></span> MealShare Aldershot · Community project prototype
-        </span>
-
+        <p>Sharing food. Supporting people. Strengthening community.</p>
+        <p class="copyright">
+            &copy; <span id="currentYear"></span> MealShare Aldershot.
+        </p>
     </footer>
 
+    <script src="app.js"></script>
 </body>
 </html>

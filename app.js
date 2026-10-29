@@ -1,345 +1,304 @@
 
-// MealShare Aldershot
-// Browser-based donation tracker and mobile navigation.
+// ===== MEALSHARE FOOD TRACKER =====
 
-// Get HTML elements
+// Find the elements on the page.
 const donationForm = document.getElementById("donationForm");
 const distributionForm = document.getElementById("distributionForm");
 const donationTable = document.getElementById("donationTable");
 const donationSelect = document.getElementById("donationSelect");
 const exportButton = document.getElementById("exportButton");
 
-const menuToggle = document.getElementById("menuToggle");
-const navigation = document.getElementById("navigation");
+// The tracker saves its records in this browser.
+const STORAGE_KEY = "mealShareAldershotDonations";
 
-// Load saved records from this browser
+// Load previously saved donations.
 let donations = [];
 
 try {
-    const saved = JSON.parse(
-        localStorage.getItem("mealShareDonations")
-    );
+    const savedDonations = localStorage.getItem(STORAGE_KEY);
 
-    donations = Array.isArray(saved) ? saved : [];
+    if (savedDonations) {
+        const parsedDonations = JSON.parse(savedDonations);
+
+        if (Array.isArray(parsedDonations)) {
+            donations = parsedDonations;
+        }
+    }
 } catch (error) {
+    console.error("Could not load saved donation records:", error);
     donations = [];
 }
 
-// Save records in this browser
+// ===== DATE AND PAGE SETUP =====
+
+const yearElement = document.getElementById("currentYear");
+
+if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
+}
+
+function getLocalDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
+
+const dateInput = document.getElementById("donationDate");
+
+if (dateInput) {
+    dateInput.value = getLocalDate();
+    dateInput.max = getLocalDate();
+}
+
+// ===== SAVE DATA =====
+
 function saveDonations() {
     try {
-        localStorage.setItem(
-            "mealShareDonations",
-            JSON.stringify(donations)
-        );
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(donations));
+        return true;
     } catch (error) {
-        alert(
-            "Your browser could not save this record. " +
-            "Please check your browser storage settings."
-        );
+        alert("The records could not be saved in this browser.");
+        console.error("Could not save donation records:", error);
+        return false;
     }
 }
 
-// Display the current year
-document.getElementById("currentYear").textContent =
-    new Date().getFullYear();
-
-// Get today's date using the local calendar
-function getLocalDate() {
-    const today = new Date();
-
-    const offset = today.getTimezoneOffset();
-
-    return new Date(
-        today.getTime() - offset * 60000
-    ).toISOString().slice(0, 10);
-}
-
-// Set today's date in the donation form
-document.getElementById("donationDate").value =
-    getLocalDate();
-
-
-// MOBILE NAVIGATION
-
-menuToggle.addEventListener("click", function () {
-    const isOpen = navigation.classList.toggle("open");
-
-    menuToggle.setAttribute(
-        "aria-expanded",
-        String(isOpen)
-    );
-
-    menuToggle.setAttribute(
-        "aria-label",
-        isOpen ? "Close navigation" : "Open navigation"
-    );
-
-    menuToggle.textContent = isOpen ? "×" : "☰";
-});
-
-// Close the mobile menu after clicking a navigation link
-navigation.querySelectorAll("a").forEach(function (link) {
-    link.addEventListener("click", function () {
-        navigation.classList.remove("open");
-
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "Open navigation");
-
-        menuToggle.textContent = "☰";
-    });
-});
-
-
-// UPDATE DASHBOARD TOTALS
+// ===== UPDATE DASHBOARD STATISTICS =====
 
 function updateDashboard() {
-    // Count donation records
-    const donationCount = donations.length;
+    const totalDonations = donations.length;
 
-    // Add up all portions offered
-    const portionCount = donations.reduce(function (total, donation) {
+    const totalPortions = donations.reduce((total, donation) => {
         return total + Number(donation.portions || 0);
     }, 0);
 
-    // Count completed collections
-    const collectionCount = donations.filter(function (donation) {
-        return donation.status === "collected";
+    const totalCollections = donations.filter((donation) => {
+        return Number(donation.collected || 0) > 0;
     }).length;
 
-    // Add up all portions distributed
-    const distributedCount = donations.reduce(function (total, donation) {
+    const totalDistributed = donations.reduce((total, donation) => {
         return total + Number(donation.distributed || 0);
     }, 0);
 
-    document.getElementById("donationCount").textContent =
-        donationCount;
+    document.getElementById("totalDonations").textContent =
+        totalDonations;
 
-    document.getElementById("portionCount").textContent =
-        portionCount;
+    document.getElementById("totalPortions").textContent =
+        totalPortions;
 
-    document.getElementById("collectionCount").textContent =
-        collectionCount;
+    document.getElementById("totalCollections").textContent =
+        totalCollections;
 
-    document.getElementById("distributedCount").textContent =
-        distributedCount;
+    document.getElementById("totalDistributed").textContent =
+        totalDistributed;
 }
 
-
-// DISPLAY DONATION HISTORY
+// ===== DISPLAY DONATION HISTORY =====
 
 function displayDonations() {
-    // Clear the current table
     donationTable.replaceChildren();
 
     if (donations.length === 0) {
         const row = document.createElement("tr");
         const cell = document.createElement("td");
 
-        cell.colSpan = 5;
+        cell.colSpan = 7;
         cell.className = "empty-message";
-        cell.textContent =
-            "No records yet. Your entries will appear here.";
+        cell.textContent = "No donation records yet.";
 
         row.appendChild(cell);
         donationTable.appendChild(row);
 
-    } else {
-        // Show the most recent date first
-        const sortedDonations = [...donations].sort(function (a, b) {
-            return b.date.localeCompare(a.date);
-        });
-
-        sortedDonations.forEach(function (donation) {
-            const row = document.createElement("tr");
-
-            const values = [
-                donation.date,
-                donation.food,
-                donation.portions,
-                donation.status === "collected"
-                    ? "Collected"
-                    : "Not collected",
-                donation.distributed
-            ];
-
-            values.forEach(function (value) {
-                const cell = document.createElement("td");
-
-                // Use textContent to display user-entered text safely
-                cell.textContent = value ?? "";
-
-                row.appendChild(cell);
-            });
-
-            donationTable.appendChild(row);
-        });
+        return;
     }
 
-    updateDashboard();
-    updateDonationOptions();
+    // Display the newest records first.
+    const sortedDonations = [...donations].sort((a, b) => {
+        return b.date.localeCompare(a.date);
+    });
+
+    sortedDonations.forEach((donation) => {
+        const row = document.createElement("tr");
+
+        const status =
+            Number(donation.distributed || 0) > 0
+                ? "Distributed"
+                : Number(donation.collected || 0) > 0
+                    ? "Collected"
+                    : "Recorded";
+
+        const values = [
+            donation.date,
+            donation.donor,
+            donation.food,
+            donation.portions,
+            donation.collected || 0,
+            donation.distributed || 0
+        ];
+
+        values.forEach((value) => {
+            const cell = document.createElement("td");
+            cell.textContent = value;
+            row.appendChild(cell);
+        });
+
+        const statusCell = document.createElement("td");
+        const statusLabel = document.createElement("span");
+
+        statusLabel.className = "status-pill";
+
+        if (status === "Distributed") {
+            statusLabel.classList.add("collected");
+        }
+
+        statusLabel.textContent = status;
+        statusCell.appendChild(statusLabel);
+        row.appendChild(statusCell);
+
+        donationTable.appendChild(row);
+    });
 }
 
-
-// UPDATE THE DONATION DROPDOWN
+// ===== UPDATE DONATION DROPDOWN =====
 
 function updateDonationOptions() {
     donationSelect.replaceChildren();
 
-    const placeholder = document.createElement("option");
+    const defaultOption = document.createElement("option");
+    defaultOption.value = "";
 
-    placeholder.value = "";
-
-    placeholder.textContent = donations.length > 0
+    defaultOption.textContent = donations.length > 0
         ? "Choose a donation"
         : "No donation records yet";
 
-    donationSelect.appendChild(placeholder);
+    donationSelect.appendChild(defaultOption);
 
-    donations.forEach(function (donation) {
+    donations.forEach((donation) => {
         const option = document.createElement("option");
 
         option.value = donation.id;
-
         option.textContent =
-            `${donation.food} — ${donation.portions} portions (${donation.date})`;
+            `${donation.donor} — ${donation.food} (${donation.portions} portions)`;
 
         donationSelect.appendChild(option);
     });
 }
 
-
-// ADD A NEW DONATION
+// ===== ADD A DONATION =====
 
 donationForm.addEventListener("submit", function (event) {
-    // Stop the page from refreshing
     event.preventDefault();
 
-    const food = document
-        .getElementById("foodName")
-        .value.trim();
-
+    const donor = document.getElementById("donorName").value.trim();
+    const food = document.getElementById("foodItem").value.trim();
     const portions = Number(
-        document.getElementById("foodPortions").value
+        document.getElementById("portions").value
     );
+    const date = dateInput.value;
 
-    const date =
-        document.getElementById("donationDate").value;
-
-    const notes = document
-        .getElementById("foodNotes")
-        .value.trim();
-
-    // Validate the form
-    if (
-        food === "" ||
-        !Number.isInteger(portions) ||
-        portions < 1 ||
-        date === ""
-    ) {
-        alert(
-            "Please enter a food description, a valid whole number " +
-            "of portions and a date."
-        );
-
+    if (!donor || !food || !date) {
+        alert("Please complete all donation fields.");
         return;
     }
 
-    // Create a new donation record
-    const newDonation = {
-        id: Date.now().toString() +
-            "-" + Math.random().toString(16).slice(2),
+    if (!Number.isInteger(portions) || portions < 1 || portions > 10000) {
+        alert("Please enter a whole number of portions between 1 and 10,000.");
+        return;
+    }
 
+    if (date > getLocalDate()) {
+        alert("The donation date cannot be in the future.");
+        return;
+    }
+
+    const donation = {
+        id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+        donor: donor,
         food: food,
         portions: portions,
         date: date,
-        notes: notes,
-        status: "not-collected",
+        collected: 0,
         distributed: 0
     };
 
-    // Add the record to the array
-    donations.push(newDonation);
+    donations.push(donation);
 
-    // Save and refresh the page content
-    saveDonations();
-    displayDonations();
+    if (!saveDonations()) {
+        donations.pop();
+        return;
+    }
 
-    // Clear the form
     donationForm.reset();
+    dateInput.value = getLocalDate();
 
-    document.getElementById("donationDate").value =
-        getLocalDate();
+    refreshTracker();
 
-    alert("Donation record saved.");
+    alert("Donation record added successfully.");
 });
 
-
-// UPDATE COLLECTION AND DISTRIBUTION
+// ===== RECORD COLLECTION AND DISTRIBUTION =====
 
 distributionForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const selectedId = donationSelect.value;
+    const donationId = donationSelect.value;
 
-    const status =
-        document.getElementById("collectionStatus").value;
+    const collectedInput = document.getElementById("collectedPortions");
+    const distributedInput = document.getElementById("distributedPortions");
 
-    const distributed = Number(
-        document.getElementById("distributedPortions").value
-    );
+    const collected = Number(collectedInput.value);
+    const distributed = Number(distributedInput.value);
 
-    // Find the selected donation
-    const donation = donations.find(function (item) {
-        return item.id === selectedId;
+    const donation = donations.find((item) => {
+        return item.id === donationId;
     });
 
     if (!donation) {
-        alert("Please choose a donation record first.");
+        alert("Please select a donation first.");
         return;
     }
 
-    // Check the distributed portion count
     if (
+        !Number.isInteger(collected) ||
         !Number.isInteger(distributed) ||
-        distributed < 0 ||
-        distributed > donation.portions
+        collected < 0 ||
+        distributed < 0
     ) {
-        alert(
-            `Enter a whole number between 0 and ${donation.portions}.`
-        );
-
+        alert("Please enter valid whole numbers.");
         return;
     }
 
-    // Food must be collected before distribution is recorded
-    if (distributed > 0 && status !== "collected") {
-        alert(
-            "Mark the donation as collected before recording " +
-            "portions shared."
-        );
-
+    if (collected > Number(donation.portions)) {
+        alert("Collected portions cannot exceed the donated portions.");
         return;
     }
 
-    // Update the existing record
-    donation.status = status;
+    if (distributed > collected) {
+        alert("Distributed portions cannot exceed collected portions.");
+        return;
+    }
+
+    const previousCollected = donation.collected || 0;
+    const previousDistributed = donation.distributed || 0;
+
+    donation.collected = collected;
     donation.distributed = distributed;
 
-    // Save the changes
-    saveDonations();
-    displayDonations();
+    if (!saveDonations()) {
+        donation.collected = previousCollected;
+        donation.distributed = previousDistributed;
+        return;
+    }
 
-    // Reset the update form
-    distributionForm.reset();
+    refreshTracker();
 
-    document.getElementById("distributedPortions").value = "0";
-
-    alert("Donation record updated.");
+    alert("Collection and distribution record updated.");
 });
 
-
-// EXPORT DONATION HISTORY AS A CSV FILE
+// ===== EXPORT RECORDS AS CSV =====
 
 exportButton.addEventListener("click", function () {
     if (donations.length === 0) {
@@ -349,57 +308,74 @@ exportButton.addEventListener("click", function () {
 
     const headings = [
         "Date",
+        "Donor",
         "Food",
-        "Portions",
-        "Notes",
-        "Collection Status",
-        "Distributed Portions"
+        "Portions Donated",
+        "Portions Collected",
+        "Portions Distributed",
+        "Status"
     ];
 
-    // Escape commas, quotation marks and other CSV-sensitive text
-    function escapeCSV(value) {
-        return `"${String(value ?? "").replace(/"/g, '""')}"`;
-    }
+    const rows = donations.map((donation) => {
+        const status =
+            Number(donation.distributed || 0) > 0
+                ? "Distributed"
+                : Number(donation.collected || 0) > 0
+                    ? "Collected"
+                    : "Recorded";
 
-    const rows = donations.map(function (donation) {
         return [
             donation.date,
+            donation.donor,
             donation.food,
             donation.portions,
-            donation.notes,
-            donation.status,
-            donation.distributed
+            donation.collected || 0,
+            donation.distributed || 0,
+            status
         ];
     });
 
-    const csvContent = [
-        headings,
-        ...rows
-    ].map(function (row) {
-        return row.map(escapeCSV).join(",");
-    }).join("\r\n");
+    // Escape commas, quotation marks and line breaks in CSV fields.
+    function escapeCSV(value) {
+        let textValue = String(value ?? "");
 
-    // Create the downloadable CSV file
-    const file = new Blob(
+        // Prevent spreadsheet formula execution for text fields.
+        if (/^[=+\-@]/.test(textValue)) {
+            textValue = "'" + textValue;
+        }
+
+        return `"${textValue.replace(/"/g, '""')}"`;
+    }
+
+    const csvContent = [headings, ...rows]
+        .map((row) => row.map(escapeCSV).join(","))
+        .join("\r\n");
+
+    const blob = new Blob(
         ["\uFEFF" + csvContent],
         { type: "text/csv;charset=utf-8;" }
     );
 
-    const fileURL = URL.createObjectURL(file);
+    const downloadUrl = URL.createObjectURL(blob);
     const link = document.createElement("a");
 
-    link.href = fileURL;
+    link.href = downloadUrl;
     link.download = "mealshare-donation-records.csv";
 
     document.body.appendChild(link);
-
     link.click();
     link.remove();
 
-    URL.revokeObjectURL(fileURL);
+    URL.revokeObjectURL(downloadUrl);
 });
 
+// ===== REFRESH THE WHOLE TRACKER =====
 
-// SHOW SAVED RECORDS WHEN THE WEBSITE OPENS
+function refreshTracker() {
+    updateDashboard();
+    displayDonations();
+    updateDonationOptions();
+}
 
-displayDonations();
+// Show saved records when the page opens.
+refreshTracker();
